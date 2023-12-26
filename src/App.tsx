@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignUp from './pages/SignUp';// the path to your theme file
 
-function App() {
+// ... import other pages/componeants
 
+const App = () => {
   return (
-    <>
-      <h1>hello</h1>
-       
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        {/* Add other routes here */}
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

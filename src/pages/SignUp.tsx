@@ -25,8 +25,16 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-      <Typography>Sign Up</Typography>
+    <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh' // This makes the div take the full viewport height
+    }}>
+      <Typography variant="h2" component="h1" gutterBottom>
+        Sign Up
+      </Typography>
       <TextField
         label="Email"
         variant="outlined"
@@ -35,7 +43,7 @@ const SignUp = () => {
           startAdornment: <EmailIcon />,
         }}
         value={email}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
       />
       <TextField
         label="Password"
@@ -52,7 +60,7 @@ const SignUp = () => {
         variant="contained" 
         color="primary" 
         onClick={handleSignUp}
-        style={{ margin: '20px 0' }}
+        style={{ marginTop: '20px' }}
       >
         Sign Up
       </Button>

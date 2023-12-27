@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { TextField, Button,Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import { Link } from 'react-router-dom';
 
-const SignUp = () => {
+
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -64,6 +66,12 @@ const SignUp = () => {
       >
         Sign Up
       </Button>
+      <Typography variant="body2" style={{ marginTop: '20px' }}>
+        Already a member? 
+        <Link to="/login" style={{ textDecoration: 'none', marginLeft: '5px' }}>
+          Log in here
+        </Link>
+      </Typography>
 
       {/* Error Dialog */}
       <Dialog open={open} onClose={handleClose}>
@@ -79,4 +87,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Signup;

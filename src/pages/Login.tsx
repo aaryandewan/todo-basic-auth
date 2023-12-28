@@ -3,6 +3,7 @@ import { TextField, Button,Typography, Dialog, DialogTitle, DialogContent, Dialo
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import {Link,useNavigate} from 'react-router-dom'
+import { useAuth } from '../AuthContext';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,8 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const handleSignUp = async () => {
+  const { login } = useAuth();
+  const handleLogIn = async () => {
     // Mockup error handling
     if (!email || !password) {
       setError('Email and password are required');
@@ -30,7 +32,9 @@ const SignUp = () => {
         setOpen(true);
       } else {
         // Store the token in local storage and navigate to the todos page or dashboard
-        localStorage.setItem('token', data.token);
+        // localStorage.setItem('token', data.token);
+        login(email, password);
+        // setAuth({ isAuthenticated: true, user: data.user, token: data.token });
         navigate('/todos'); // Redirect to the todos page after successful sign in
       }
     } catch (err) {
@@ -79,7 +83,7 @@ const SignUp = () => {
       <Button 
         variant="contained" 
         color="primary" 
-        onClick={handleSignUp}
+        onClick={handleLogIn}
         style={{ marginTop: '20px' }}
       >
         Log In

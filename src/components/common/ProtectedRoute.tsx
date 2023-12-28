@@ -20,7 +20,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ path, element }) => {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
-  return <Route path={path} element={element} />;
+  return element;
 };
 
 export default ProtectedRoute;

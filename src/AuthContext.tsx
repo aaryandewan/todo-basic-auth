@@ -1,6 +1,6 @@
 // src/AuthContext.tsx
 import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
-
+import {Link,useNavigate} from 'react-router-dom'
 interface AuthContextType {
   auth: {
     isAuthenticated: boolean;
@@ -18,13 +18,15 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+    const navigate = useNavigate();
   const [auth, setAuth] = useState({
-    isAuthenticated: false,
+    isAuthenticated: !!localStorage.getItem('token'),
     user: null,
-    token: null,
+    token: localStorage.getItem('token'),
   });
 
   const login = async (email: string, password: string) => {
+    console.log("emaiil", email,password);
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -32,10 +34,11 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-
+      console.log("RESPONES!", response);
       if (response.ok) {
         setAuth({ isAuthenticated: true, user: data.user, token: data.token });
         localStorage.setItem('token', data.token);
+        navigate('/todos');
       } else {
         throw new Error(data.message);
       }

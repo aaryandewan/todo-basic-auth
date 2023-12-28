@@ -12,6 +12,7 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <Routes>
+        <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/todos" element={<ProtectedRoute path="/todos" element={<TodoPage />} />} />

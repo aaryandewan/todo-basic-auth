@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button,Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 
 const Signup = () => {
@@ -10,15 +10,34 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     // Mockup error handling
     if (!email || !password) {
       setError('Email and password are required');
       setOpen(true);
       return;
     }
-    // Here you would typically make an API call.
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || 'Failed to sign up');
+        setOpen(true);
+      } else {
+        // Handle successful signup (e.g., redirect to login or directly log in the user)
+        navigate('/login'); // Redirect to the signin page after successful signup
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+      setOpen(true);
+    }    
     console.log('Signing up with:', email, password);
   };
 

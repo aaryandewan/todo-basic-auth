@@ -12,36 +12,19 @@ const SignUp = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  
   const handleLogIn = async () => {
-    // Mockup error handling
     if (!email || !password) {
       setError('Email and password are required');
       setOpen(true);
       return;
     }
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || 'Failed to sign in');
-        setOpen(true);
-      } else {
-        // Store the token in local storage and navigate to the todos page or dashboard
-        // localStorage.setItem('token', data.token);
-        login(email, password);
-        // setAuth({ isAuthenticated: true, user: data.user, token: data.token });
-        navigate('/todos'); // Redirect to the todos page after successful sign in
-      }
+      login(email, password, setOpen, setError);
     } catch (err) {
       setError('An error occurred. Please try again.');
       setOpen(true);
     }
-  
   };
 
   const handleClose = () => {
@@ -54,7 +37,7 @@ const SignUp = () => {
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        height: '100vh' // This makes the div take the full viewport height
+        height: '100vh'
     }}>
       <Typography variant="h2" component="h1" gutterBottom>
         Log In
@@ -95,7 +78,7 @@ const SignUp = () => {
         </Link>
       </Typography>
 
-      {/* Error Dialog */}
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Error</DialogTitle>
         <DialogContent>{error}</DialogContent>

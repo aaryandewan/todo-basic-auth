@@ -4,7 +4,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { Link,useNavigate } from 'react-router-dom';
 
-
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +12,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
-    // Mockup error handling
     if (!email || !password) {
       setError('Email and password are required');
       setOpen(true);
@@ -31,14 +29,13 @@ const Signup = () => {
         setError(data.message || 'Failed to sign up');
         setOpen(true);
       } else {
-        // Handle successful signup (e.g., redirect to login or directly log in the user)
-        navigate('/login'); // Redirect to the signin page after successful signup
+        // successful signup 
+        navigate('/login');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
       setOpen(true);
     }    
-    console.log('Signing up with:', email, password);
   };
 
   const handleClose = () => {
@@ -51,7 +48,7 @@ const Signup = () => {
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        height: '100vh' // This makes the div take the full viewport height
+        height: '100vh'
     }}>
       <Typography variant="h2" component="h1" gutterBottom>
         Sign Up
@@ -92,7 +89,6 @@ const Signup = () => {
         </Link>
       </Typography>
 
-      {/* Error Dialog */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Error</DialogTitle>
         <DialogContent>{error}</DialogContent>

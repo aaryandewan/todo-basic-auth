@@ -1,13 +1,13 @@
 // src/AuthContext.tsx
 import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
-import {Link,useNavigate} from 'react-router-dom'
+import {Link , useNavigate} from 'react-router-dom'
 interface AuthContextType {
   auth: {
     isAuthenticated: boolean;
     user: any; // Replace 'any' with a more specific type or interface for your user
     token: string | null;
   };
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, setOpen: any, setError: any) => Promise<void>;
   logout: () => void;
 }
 
@@ -25,7 +25,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     token: localStorage.getItem('token'),
   });
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, setOpen: any, setError: any) => { //aaryan type
     console.log("emaiil", email,password);
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
@@ -34,16 +34,18 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log("RESPONES!", response);
       if (response.ok) {
         setAuth({ isAuthenticated: true, user: data.user, token: data.token });
         localStorage.setItem('token', data.token);
         navigate('/todos');
       } else {
-        throw new Error(data.message);
+        setError(data.message);
+        setOpen(true);
       }
     } catch (error) {
       console.error('Login failed:', error);
+      setError("Sorry, some error occured :( Please try again");
+      setOpen(true);
       throw error;
     }
   };

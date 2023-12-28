@@ -24,7 +24,6 @@ interface DecodedJWT {
       // Token is either invalid or expired
       return false;
     }
-  
     return true;
   };
   

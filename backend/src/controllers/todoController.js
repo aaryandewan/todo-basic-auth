@@ -20,5 +20,57 @@ exports.addTodo = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.updateTodo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text, completed } = req.body;
+
+    const todo = await Todo.findOneAndUpdate(
+      { _id: id, user: req.user.id },
+      { text, completed },
+      { new: true }
+    );
+
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    res.json(todo);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deleteTodo = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const todo = await Todo.findOneAndDelete({ _id: id, user: req.user.id });
+
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    res.json({ message: "Todo deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deleteTodo = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const todo = await Todo.findOneAndDelete({ _id: id, user: req.user.id });
+
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    res.json({ message: "Todo deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // Add other CRUD operations (updateTodo, deleteTodo) here

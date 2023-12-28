@@ -6,6 +6,8 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/", authMiddleware, todoController.getTodos);
 router.post("/", authMiddleware, todoController.addTodo);
+router.put("/:id", authMiddleware, todoController.updateTodo);
+router.delete("/:id", authMiddleware, todoController.deleteTodo);
 
 // Add other routes for update and delete
 

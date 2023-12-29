@@ -1,5 +1,3 @@
-// src/components/common/ProtectedRoute.tsx
-
 import { FC, ReactElement } from 'react';
 import { Navigate} from 'react-router-dom';
 import { isAuthenticated } from '../../utils/auth';

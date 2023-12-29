@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button,Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import {Link,useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { useAuth } from '../AuthContext';
 
 const SignUp = () => {
@@ -10,7 +10,6 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const { login } = useAuth();
   
   const handleLogIn = async () => {

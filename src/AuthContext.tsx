@@ -1,10 +1,9 @@
-// src/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
-import {Link , useNavigate} from 'react-router-dom'
+import { createContext, useContext, useState, ReactNode, FC } from 'react';
+import { useNavigate} from 'react-router-dom'
 interface AuthContextType {
   auth: {
     isAuthenticated: boolean;
-    user: any; // Replace 'any' with a more specific type or interface for your user
+    user: any;
     token: string | null;
   };
   login: (email: string, password: string, setOpen: any, setError: any) => Promise<void>;
@@ -19,7 +18,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     const navigate = useNavigate();
-  const [auth, setAuth] = useState({
+    const [auth, setAuth] = useState({
     isAuthenticated: !!localStorage.getItem('token'),
     user: null,
     token: localStorage.getItem('token'),

@@ -1,4 +1,3 @@
-// src/services/todoService.ts
 const API_URL = 'http://localhost:5000/api/todos';
 
 export const getTodos = async (token: string) => {
@@ -45,5 +44,3 @@ export const deleteTodo = async (id: string, token: string) => {
     });
     return response.json();
   };
-
-// Implement updateTodo and deleteTodo similarly
